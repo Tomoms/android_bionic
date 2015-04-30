@@ -943,12 +943,14 @@ cc_library_static {
             },
             krait: {
                 srcs: [
+                    "arch-arm/krait/bionic/memcmp.S",
                     "arch-arm/krait/bionic/memcpy.S",
                     "arch-arm/krait/bionic/memset.S",
 
                     "arch-arm/krait/bionic/strcmp.S",
                 ],
                 exclude_srcs: [
+                    "arch-arm/generic/bionic/memcmp.S",
                     "arch-arm/cortex-a15/bionic/memset.S",
                     "arch-arm/cortex-a15/bionic/memcpy.S",
 
