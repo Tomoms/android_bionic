@@ -1507,7 +1507,11 @@ cc_library_static {
         },
     },
     whole_static_libs: ["libsystemproperties"],
-    cppflags: ["-Wold-style-cast","-O3"],
+    cppflags: [
+        "-Wold-style-cast",
+        "-Wno-tautological-type-limit-compare",
+        "-O3",
+    ],
     local_include_dirs: ["stdio"],
     include_dirs: ["bionic/libstdc++/include"],
     name: "libc_bionic_ndk",
