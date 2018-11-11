@@ -6,6 +6,8 @@ cc_library_static {
         "linker_allocator.cpp",
         "linker_memory.cpp",
     ],
+    
+    cflags: ["-O3"],
 
     // We need to access Bionic private headers in the linker.
     include_dirs: ["bionic/libc"],
@@ -88,6 +90,7 @@ cc_binary {
         "-Wextra",
         "-Wunused",
         "-Werror",
+        "-O3",
     ],
 
     // TODO: split out the asflags.
