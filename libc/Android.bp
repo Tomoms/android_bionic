@@ -106,6 +106,9 @@ cc_defaults {
     apex_available: ["com.android.runtime"],
 
     tidy_disabled_srcs: ["upstream-*/**/*.c"],
+    lto: {
+        thin: true,
+    },
 }
 
 libc_product_variables = {
