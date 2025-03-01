@@ -382,6 +382,10 @@ cc_defaults {
                 "libdebuggerd_handler_fallback",
             ],
         },
+        android_arm64: {
+            cflags: ["-fsplit-machine-functions"],
+            ldflags: ["-fsplit-machine-functions"],
+        },
         linux_bionic: {
             static_libs: [
                 "liblinker_debuggerd_stub",
