@@ -495,7 +495,7 @@ no_recovery:
 	*he = NO_RECOVERY;
 	return NULL;
 success:
-	bp = __builtin_align_up(bp, sizeof(uintptr_t));
+	bp = (char *)ALIGN(bp);
 	n = (int)(ap - aliases);
 	qlen = (n + 1) * sizeof(*hent->h_aliases);
 	if ((size_t)(ep - bp) < qlen)
@@ -616,7 +616,7 @@ android_read_hostent(FILE* proxy, struct hostent* hp, char* hbuf, size_t hbuflen
 	}
 
 	// Fix alignment after variable-length data.
-	ptr = __builtin_align_up(ptr, sizeof(uintptr_t));
+	ptr = (char*)ALIGN(ptr);
 
 	int aliases_len = ((int)(aliases - aliases_ptrs) + 1) * sizeof(*hp->h_aliases);
 	if (ptr + aliases_len > hbuf_end) {
@@ -653,7 +653,7 @@ android_read_hostent(FILE* proxy, struct hostent* hp, char* hbuf, size_t hbuflen
 	}
 
 	// Fix alignment after variable-length data.
-	ptr = __builtin_align_up(ptr, sizeof(uintptr_t));
+	ptr = (char*)ALIGN(ptr);
 
 	int addrs_len = ((int)(addr_p - addr_ptrs) + 1) * sizeof(*hp->h_addr_list);
 	if (ptr + addrs_len > hbuf_end) {

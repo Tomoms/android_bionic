@@ -205,7 +205,7 @@ _hf_gethtbyname2(const char *name, int af, struct getnamaddr *info)
 				HENT_SCOPY(aliases[anum], hp->h_aliases[anum],
 				    ptr, len);
 			}
-			ptr = __builtin_align_up(ptr, sizeof(uintptr_t));
+			ptr = (void *)ALIGN(ptr);
 			if ((size_t)(ptr - buf) >= info->buflen)
 				goto nospc;
 		}
