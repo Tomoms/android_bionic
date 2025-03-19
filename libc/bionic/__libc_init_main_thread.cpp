@@ -47,7 +47,7 @@ extern "C" int __set_tid_address(int* tid_address);
 __attribute__((aligned(PAGE_SIZE)))
 uintptr_t __stack_chk_guard[PAGE_SIZE / sizeof(uintptr_t)] = {0};
 
-static pthread_internal_t main_thread;
+BIONIC_USED_BEFORE_LINKER_RELOCATES static pthread_internal_t main_thread;
 
 #if __LP64__
 static const uintptr_t canary_mask = __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__ ?

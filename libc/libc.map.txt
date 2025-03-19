@@ -592,7 +592,6 @@ LIBC {
     killpg;
     klogctl;
     labs;
-    lchmod; # introduced=36
     lchown;
     lcong48; # introduced=23
     ldexp;
@@ -672,7 +671,6 @@ LIBC {
     mprotect;
     mrand48;
     mremap;
-    mseal; # introduced=36
     msync;
     munlock;
     munlockall;
@@ -847,7 +845,6 @@ LIBC {
     pwrite;
     pwrite64;
     qsort;
-    qsort_r; # introduced=36
     quick_exit;
     raise;
     rand;
@@ -956,7 +953,6 @@ LIBC {
     setvbuf;
     setxattr;
     shutdown;
-    sig2str; # introduced=36
     sigaction;
     sigaddset;
     sigaltstack;
@@ -999,7 +995,6 @@ LIBC {
     stdout; # var introduced=23
     stpcpy;
     stpncpy;
-    str2sig; # introduced=36
     strcasecmp;
     strcasecmp_l; # introduced=23
     strcasestr;
@@ -1613,6 +1608,17 @@ LIBC_V { # introduced=35
     wcsrtombs_l;
     __system_properties_zygote_reload; # apex
 } LIBC_U;
+
+LIBC_36 { # introduced=36
+  global:
+    lchmod;
+    mseal;
+    pthread_getaffinity_np;
+    pthread_setaffinity_np;
+    qsort_r;
+    sig2str;
+    str2sig;
+} LIBC_V;
 
 LIBC_PRIVATE {
   global:
