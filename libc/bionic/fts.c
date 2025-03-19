@@ -29,6 +29,7 @@
  * SUCH DAMAGE.
  */
 
+#include <sys/param.h>	/* ALIGN */
 #include <sys/stat.h>
 
 #include <dirent.h>
@@ -36,7 +37,6 @@
 #include <fcntl.h>
 #include <fts.h>
 #include <limits.h>
-#include <stdalign.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -912,14 +912,10 @@ fts_alloc(FTS *sp, const char *name, size_t namelen)
 	 * be careful that the stat structure is reasonably aligned.  Since the
 	 * fts_name field is declared to be of size 1, the fts_name pointer is
 	 * namelen + 2 before the first possible address of the stat structure.
-	 *
-	 * We can't use the same trick FreeBSD uses here because our fts_name
-	 * is a char[1] rather than a char*. This is also the reason we don't
-	 * need to say `namelen + 1`. We just assume the worst alignment.
 	 */
 	len = sizeof(FTSENT) + namelen;
 	if (!ISSET(FTS_NOSTAT))
-		len += alignof(struct stat) + sizeof(struct stat);
+		len += sizeof(struct stat) + ALIGNBYTES;
 	if ((p = calloc(1, len)) == NULL)
 		return (NULL);
 
@@ -927,7 +923,7 @@ fts_alloc(FTS *sp, const char *name, size_t namelen)
 	p->fts_namelen = namelen;
 	p->fts_instr = FTS_NOINSTR;
 	if (!ISSET(FTS_NOSTAT))
-		p->fts_statp = (struct stat *)__builtin_align_up(p->fts_name + namelen + 2, alignof(struct stat));
+		p->fts_statp = (struct stat *)ALIGN(p->fts_name + namelen + 2);
 	memcpy(p->fts_name, name, namelen);
 
 	return (p);
